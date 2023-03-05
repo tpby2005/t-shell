@@ -21,6 +21,14 @@ void shell_help();
 void shell_exit();
 void shell_pwd(const std::string& current_location);
 std::string shell_cd(const std::vector<std::string>& args, std::string current_location);
+void shell_clear();
+
+//TODO: make far more efficient (I believe there's already a posix way of doing this)
+void shell_clear() {
+    for (int i = 0; i < 100; i++) {
+        std::cout << std::endl;
+    }
+}
 
 std::string shell_cd(const std::vector<std::string>& args, std::string current_location) {
     if (args.size() == 1) {
@@ -57,6 +65,7 @@ void shell_help() {
     std::cout << "exit: Leave shell\n";
     std::cout << "pwd: Print current directory\n";
     std::cout << "cd: Change directory\n";
+    std::cout << "clear: Clear the screen\n";
 }
 
 void shell_exit() {
@@ -92,7 +101,7 @@ Execute shell_execute(const std::vector<std::string>& args, std::string current_
         Execute result = {1, current_location};
         return result;
     }
-    //TODO: turn all these things into enum
+    //TODO: turn all these things into enum then make it a switch case
     else if (args.at(0) == "exit") {
         shell_exit();
         Execute result = {-1, current_location};
@@ -119,6 +128,12 @@ Execute shell_execute(const std::vector<std::string>& args, std::string current_
 
     else if (args.at(0) == "cd") {
         current_location = shell_cd(args, current_location);
+        Execute result = {1, current_location};
+        return result;
+    }
+
+    else if (args.at(0) == "clear") {
+        shell_clear();
         Execute result = {1, current_location};
         return result;
     }

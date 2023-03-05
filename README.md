@@ -12,3 +12,5 @@ Current commands:
 `pwd`: Prints the current directory.
 
 `cd`: Changes the current directory.
+
+`clear`: Clears the screen.
